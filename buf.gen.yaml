@@ -6,7 +6,7 @@ plugins:
     opt: paths=source_relative
 
   # protoc-gen-go-gprc
-  - plugin: go-grpc  # protoc-gen-go-grpc
+  - plugin: go-grpc
     out: gen/go
     opt: 
       - paths=source_relative

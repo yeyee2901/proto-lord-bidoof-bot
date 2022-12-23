@@ -1,4 +1,4 @@
-module github.com/yeyee2901/proto-grpc-telegram-bot
+module github.com/yeyee2901/proto-lord-bidoof-bot
 
 go 1.19
 
