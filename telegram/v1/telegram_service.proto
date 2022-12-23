@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package telegram.v1;
+
+option go_package = "github.com/yeyee2901/proto-grpc-telegram-bot/gen/go/telegram/v1;telegrampb";
+
+import "telegram/v1/telegram.proto";
+
+service TelegramService {
+  rpc BotStatus(BotStatusRequest) returns (BotStatusResponse);
+}
