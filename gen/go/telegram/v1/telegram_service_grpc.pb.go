@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type TelegramServiceClient interface {
 	BotStatus(ctx context.Context, in *BotStatusRequest, opts ...grpc.CallOption) (*BotStatusResponse, error)
 	SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*SendMessageResponse, error)
+	GetPrivateChat(ctx context.Context, in *GetPrivateChatRequest, opts ...grpc.CallOption) (*GetPrivateChatResponse, error)
 }
 
 type telegramServiceClient struct {
@@ -52,12 +53,22 @@ func (c *telegramServiceClient) SendMessage(ctx context.Context, in *SendMessage
 	return out, nil
 }
 
+func (c *telegramServiceClient) GetPrivateChat(ctx context.Context, in *GetPrivateChatRequest, opts ...grpc.CallOption) (*GetPrivateChatResponse, error) {
+	out := new(GetPrivateChatResponse)
+	err := c.cc.Invoke(ctx, "/telegram.v1.TelegramService/GetPrivateChat", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TelegramServiceServer is the server API for TelegramService service.
 // All implementations should embed UnimplementedTelegramServiceServer
 // for forward compatibility
 type TelegramServiceServer interface {
 	BotStatus(context.Context, *BotStatusRequest) (*BotStatusResponse, error)
 	SendMessage(context.Context, *SendMessageRequest) (*SendMessageResponse, error)
+	GetPrivateChat(context.Context, *GetPrivateChatRequest) (*GetPrivateChatResponse, error)
 }
 
 // UnimplementedTelegramServiceServer should be embedded to have forward compatible implementations.
@@ -69,6 +80,9 @@ func (UnimplementedTelegramServiceServer) BotStatus(context.Context, *BotStatusR
 }
 func (UnimplementedTelegramServiceServer) SendMessage(context.Context, *SendMessageRequest) (*SendMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
+}
+func (UnimplementedTelegramServiceServer) GetPrivateChat(context.Context, *GetPrivateChatRequest) (*GetPrivateChatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPrivateChat not implemented")
 }
 
 // UnsafeTelegramServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -118,6 +132,24 @@ func _TelegramService_SendMessage_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TelegramService_GetPrivateChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPrivateChatRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TelegramServiceServer).GetPrivateChat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/telegram.v1.TelegramService/GetPrivateChat",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TelegramServiceServer).GetPrivateChat(ctx, req.(*GetPrivateChatRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TelegramService_ServiceDesc is the grpc.ServiceDesc for TelegramService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -132,6 +164,10 @@ var TelegramService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendMessage",
 			Handler:    _TelegramService_SendMessage_Handler,
+		},
+		{
+			MethodName: "GetPrivateChat",
+			Handler:    _TelegramService_GetPrivateChat_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
