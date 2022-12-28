@@ -14,3 +14,25 @@ message BotStatusResponse {
   bool can_read_all_group_messages = 6;
   bool supports_inline_queries = 7;
 }
+
+message SendMessageRequest {
+  // chat ID, this determines to whom this message is sent to
+  int64 chat_id = 1;
+
+  // the message
+  string text = 2;
+
+  // opt to use markdown or not
+  bool use_markdown = 3;
+}
+
+message SendMessageResponse {
+  // unique message ID
+  int64 message_id = 1;
+
+  // chat id, determines the recipient
+  int64 chat_id = 2;
+
+  // recipient name (first name + last name)
+  string recipient = 3;
+}
