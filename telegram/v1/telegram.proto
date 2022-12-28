@@ -50,15 +50,7 @@ message SendMessageResponse {
   string recipient = 3;
 }
 
-message GetPrivateChatRequest {
-  // filter by chat_id (use equal comparison)
-  string filter_chat_id = 10;
-
-  // filter by chat_id (use equal comparison)
-  string filter_username = 11;
-}
-
-message GetPrivateChatResponse {
+message ChatData {
   // chat id
   int64 chat_id = 1;
 
@@ -70,4 +62,20 @@ message GetPrivateChatResponse {
 
   // bio of the user (not mandatory)
   string bio = 4;
+}
+
+message GetPrivateChatRequest {
+  // filter by chat_id (use equal comparison)
+  string filter_chat_id = 10;
+
+  // filter by chat_id (use equal comparison)
+  string filter_username = 11;
+}
+
+message GetPrivateChatResponse {
+  // num of result
+  uint64 count = 1;
+
+  // the actual chat data
+  repeated ChatData data = 2;
 }
