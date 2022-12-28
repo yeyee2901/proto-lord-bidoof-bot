@@ -6,12 +6,25 @@ option go_package = "github.com/yeyee2901/proto-lord-bidoof-bot/gen/go/telegram/
 
 message BotStatusRequest {}
 message BotStatusResponse {
+  // user ID given by Telegram
   uint64 id = 1;
+
+  // should be true
   bool is_bot = 2;
+
+  // first name of the bot
   string first_name = 3;
+
+  // username of the bot
   string username = 4;
+
+  // whether the bot can join Telegram groups
   bool can_join_groups = 5;
+
+  // whether the bot can read all group messages
   bool can_read_all_group_messages = 6;
+
+  // whether the bot supports inline queries
   bool supports_inline_queries = 7;
 }
 

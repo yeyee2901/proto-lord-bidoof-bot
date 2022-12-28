@@ -9,4 +9,5 @@ import "telegram/v1/telegram.proto";
 service TelegramService {
   rpc BotStatus(BotStatusRequest) returns (BotStatusResponse);
   rpc SendMessage(SendMessageRequest) returns(SendMessageResponse);
+  rpc GetPrivateChat(GetPrivateChatRequest) returns(GetPrivateChatResponse);
 }
